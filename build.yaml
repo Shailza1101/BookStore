@@ -23,7 +23,7 @@ jobs:
     - name: build and push the docker image
       env:
         GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
-      run:
-        gcloud auth configure-docker us-east4-docker.pkg.dev
-        docker build -t us-east4-docker.pkg.dev/nodal-unity-424508-u9/the-book-store/nginx:latest .
-        docker push us-east4-docker.pkg.dev/nodal-unity-424508-u9/the-book-store/nginx:latest
+      run: |
+        gcloud auth configure-docker us-central1-docker.pkg.dev
+        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/demo/nginx:latest .
+        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/demo/nginx:latest
