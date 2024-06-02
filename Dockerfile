@@ -1,21 +1,14 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
 
-# Set environment variables
+# Step 1: Use official lightweight Python image as base OS.
+FROM python:3.8-slim
+
+# Step 2. Copy local code to the container image.
 ENV APP_HOME /app
-ENV PORT 8080
-
-# Create the application directory
 WORKDIR $APP_HOME
+COPY . ./
 
-# Copy the current directory contents into the container at /app
-COPY . .
+# Step 3. Install production dependencies.
+RUN pip install -r requirements.txt
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Expose the port on which the FastAPI application will run
-EXPOSE $PORT
-
-# Command to run the application using uvicorn server
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Step 4: Run the web service on container startup using gunicorn webserver.
+CMD exec gunicorn --bind :$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker  --threads 8 main:app
