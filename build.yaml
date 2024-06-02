@@ -25,5 +25,5 @@ jobs:
         GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
       run: |
         gcloud auth configure-docker us-east4-docker.pkg.dev
-        docker build -t us-east4-docker.pkg.dev/nodal-unity-424508-u9/the-book-store/nginx:latest .
+        docker build -t us-east4-docker.pkg.dev/nodal-unity-424508-u9/the-book-store/nginx:latest
         docker push us-east4-docker.pkg.dev/nodal-unity-424508-u9/the-book-store/nginx:latest
